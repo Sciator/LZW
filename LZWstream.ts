@@ -78,7 +78,7 @@ export class LZWTransformDecompress extends Transform {
       if (this.dict.has(i))
         this.x = (this.dict.get(i) as string).split(",").map(__ => +__);
       else
-        this.x = this.xp;
+        this.x = [...this.xp, this.xp[0]];
 
       if (this.xp.length > 0) {
         const xpa = [...this.xp, this.x[0]];
