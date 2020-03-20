@@ -1,5 +1,4 @@
 import { range, getInversedMap } from "./common";
-import { BufferHelper } from "./BufferHelper";
 
 const getDefaultDict = () => {
   const dict = new Map<string, number>();
@@ -9,7 +8,7 @@ const getDefaultDict = () => {
   return dict;
 };
 
-export const compress = (data: Buffer) => {
+export const compress = (data: number[]): number[] => {
   const dict = getDefaultDict();
 
   let x: number[] = [];
@@ -28,28 +27,29 @@ export const compress = (data: Buffer) => {
     }
   });
 
-  if (x.length > 0) outAddX();
+  if (x.length) outAddX();
 
-  return BufferHelper.numberArray.toBuffer(out);
+  return out;
 };
 
 
-export const decompress = (compressedData: Buffer) => {
+export const decompress = (compressedData: number[]): number[] => {
   const dict = getInversedMap(getDefaultDict());
   const out: number[] = [];
 
   let xp: number[] = [];
   let x: number[];
 
-  BufferHelper.numberArray.fromBuffer(compressedData)
-    .map((i: number) => {
+  compressedData
+    .map(i => {
       if (dict.has(i))
         x = (dict.get(i) as string).split(",").map(__ => +__);
       else
-        x = xp;
+        x = [...xp, xp[0]];
 
-      if (xp.length > 0) {
-        const xpa = [...xp, x[0]];
+      if (xp.length) {
+        const a = x[0];
+        const xpa = [...xp, a];
         dict.set(dict.size, xpa.join());
       }
       xp = x;
@@ -57,5 +57,5 @@ export const decompress = (compressedData: Buffer) => {
       out.push(...(dict.get(i) as string).split(",").map(__ => +__));
     });
 
-  return Buffer.from(out);
+  return out;
 };
