@@ -26,9 +26,13 @@ yargs
       const operation = (args.compress && "C") || (args.decompress && "D") || undefined;
       const forceOverwrite = args.force || false;
 
-      const t0 = Date.now();
-      await processFile(args.file as string, args.output as string, operation, forceOverwrite);
-      console.info(chalk.green(`Done ! ${Date.now() - t0} ms`));
+      try {
+        const t0 = Date.now();
+        await processFile(args.file as string, args.output as string, operation, forceOverwrite);
+        console.info(chalk.green(`Done ! ${Date.now() - t0} ms`));
+      } catch (e) {
+        console.error(chalk.red(e.message));
+      }
     }))
   .argv
   ;

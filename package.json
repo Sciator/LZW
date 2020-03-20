@@ -1,0 +1,27 @@
+{
+  "name": "lzw",
+  "version": "1.0.0",
+  "description": "simple lzw compression",
+  "main": "index.ts",
+  "bin": {
+    "lzw": "BufferHelper.js"
+  },
+  "dependencies": {
+    "chalk": "^3.0.0",
+    "cli-progress": "^3.6.0",
+    "progress-stream": "^2.0.0",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/cli-progress": "^3.4.2",
+    "@types/progress-stream": "^2.0.0",
+    "@types/yargs": "^15.0.4"
+  },
+  "keywords": [
+    "compress",
+    "lzw",
+    "cli"
+  ],
+  "author": "Roman Wehmhőner"
+}
