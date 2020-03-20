@@ -7,21 +7,22 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "TXT Compress",
       "console": "integratedTerminal",
       "program": "${workspaceFolder}/index.ts",
       "outFiles": [
         "${workspaceFolder}/bin/**/*.js"
       ],
       "args": [
-        "./data/test.txt"
+        "./data/test.txt",
+        "-f"
       ],
       "cwd": "${workspaceFolder}"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Decompress",
+      "name": "TXT Decompress",
       "console": "integratedTerminal",
       "program": "${workspaceFolder}/index.ts",
       "outFiles": [
@@ -29,7 +30,8 @@
       ],
       "args": [
         "./data/test.txt.lzw",
-        "./data/test.out.txt"
+        "./data/test.out.txt",
+        "-f"
       ],
       "cwd": "${workspaceFolder}"
     },
@@ -43,7 +45,24 @@
         "${workspaceFolder}/bin/**/*.js"
       ],
       "args": [
-        "./data/test.pdf"
+        "./data/test.pdf",
+        "-f"
+      ],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "PDF Decompress",
+      "console": "integratedTerminal",
+      "program": "${workspaceFolder}/index.ts",
+      "outFiles": [
+        "${workspaceFolder}/bin/**/*.js"
+      ],
+      "args": [
+        "./data/test.pdf.lzw",
+        "./data/test.out.pdf",
+        "-f"
       ],
       "cwd": "${workspaceFolder}"
     }
