@@ -89,8 +89,6 @@ export class LZWTransformDecompress extends Transform {
       out.push(...(this.dict.get(i) as string).split(",").map(__ => +__));
     });
 
-    await sleep(1000);
-
     callback(null, Buffer.from(out));
   }
 
