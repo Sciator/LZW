@@ -1,14 +1,17 @@
 import chalk from "chalk";
 import * as readline from "readline";
 
-const read = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
 export const question = async (qq: string) => {
   return new Promise((resolve) => {
-    read.question(qq, (res) => resolve(res));
+    const read = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    read.question(qq, (res) => {
+      read.close();
+      resolve(res);
+    });
   });
 };
 
