@@ -1,9 +1,6 @@
-import { compress, decompress } from "./LZW";
-import { BufferHelper } from "./BufferHelper";
-import yargs = require("yargs");
-import { questionYN } from "./CLI";
+import yargs from "yargs";
+import chalk from "chalk";
 import { processFile } from "./ProcessFile";
-import chalk = require("chalk");
 
 // tslint:disable-next-line: no-unused-expression
 yargs

@@ -1,5 +1,5 @@
 import { Transform } from "stream";
-import { range, getInversedMap, sleep } from "./common";
+import { range, getInversedMap } from "./common";
 
 const getDefaultDict = () => {
   const dict = new Map<string, number>();

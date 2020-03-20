@@ -1,5 +1,5 @@
-import chalk from "chalk";
 import * as readline from "readline";
+import chalk from "chalk";
 
 export const question = async (qq: string) => {
   return new Promise((resolve) => {

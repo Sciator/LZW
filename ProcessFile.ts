@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as Path from "path";
+import { extname } from "path";
 import { promisify } from "util";
 
 import { LZWTransformCompress, LZWTransformDecompress } from "./LZWstream";
@@ -17,7 +17,7 @@ export const processFile = async (
     throw new Error(`Input file doesn't exist! ${input}`);
 
   const isDecompress = (operation === "D")
-    || (operation !== "C" && Path.extname(input).toLowerCase() === ".lzw")
+    || (operation !== "C" && extname(input).toLowerCase() === ".lzw")
     ;
 
   const output = outputOptional || (isDecompress
