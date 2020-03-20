@@ -1,59 +1,62 @@
 import * as fs from "fs";
-import { asReadonly } from "./common";
-import { questionYN } from "./CLI";
 import * as Path from "path";
-import { decompress, compress } from "./LZW";
+import { promisify } from "util";
+
 import { LZWTransformCompress, LZWTransformDecompress } from "./LZWstream";
+import { SingleBar, Presets } from "cli-progress";
+import Progress from "progress-stream";
+import { questionYN } from "./CLI";
 
 export const processFile = async (
   input: string,
-  outputOpt?: string,
+  outputOptional?: string,
   operation?: "C" | "D",
   forceOverwrite?: boolean
 ) => {
-  if (!fs.existsSync(input)) {
-    // tslint:disable-next-line: no-console
-    console.error(`Input file doesn't exist! ${input}`);
-    return;
-  }
+  if (!await promisify(fs.exists)(input))
+    throw new Error(`Input file doesn't exist! ${input}`);
 
   const isDecompress = (operation === "D")
-    || (operation !== "C" &&
-      Path.extname(input).toLowerCase() === ".lzw")
+    || (operation !== "C" && Path.extname(input).toLowerCase() === ".lzw")
     ;
 
-  const output = outputOpt || (
+  const output = outputOptional ||
     isDecompress
-      // todo: chovaní v případě test.lzw.txt.neco ...
-      ? input.split(".").filter(x => x !== "lzw").join(".")
-      : input + ".lzw"
-  );
+    ? input.split(".").slice(-1)[0] === "lzw"
+      ? input.split(".").slice(0, -1).join(".")
+      : input
+    : input + ".lzw"
+    ;
 
-  if (fs.existsSync(output)
+  if (await promisify(fs.exists)(output)
     && !forceOverwrite
     && !await questionYN(`Output file ${output} already exists. Override ?`)
   ) return;
 
+
   const inputStream = fs.createReadStream(input);
+  const inputSize = (await promisify(fs.stat)(input)).size;
+
   const outputStream = fs.createWriteStream(output);
+  const outputClosed = new Promise(r => outputStream.on("close", () => r()));
 
-  if (isDecompress)
-    inputStream
-      .pipe(new LZWTransformDecompress())
-      .pipe(outputStream)
-      ;
-  else
-    inputStream
-      .pipe(new LZWTransformCompress())
-      .pipe(outputStream)
-      ;
+  const progressBar = new SingleBar({}, Presets.shades_classic);
+  progressBar.start(inputSize, 0);
 
-  await new Promise(r => { inputStream.on("close", () => { r(); }); });
-  // const procFnc = isDecompress ? decompress : compress;
-  // const inputData = fs.readFileSync(input);
-  // const processedData = procFnc(inputData);
-  // fs.writeFileSync(output, processedData);
+  const progressListener = Progress({ length: inputSize });
+  progressListener.on("progress",
+    ({ transferred }) => progressBar.update(transferred));
+
+  inputStream
+    .pipe(progressListener)
+    .pipe(
+      isDecompress
+        ? new LZWTransformDecompress()
+        : new LZWTransformCompress()
+    )
+    .pipe(outputStream)
+    ;
+
+  await outputClosed;
+  progressBar.stop();
 };
-
-
-
