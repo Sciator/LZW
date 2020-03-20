@@ -19,11 +19,12 @@ const asBuffer = (arr: number[]) => {
 
 const fromBuffer = (buf: Buffer): [number[], Buffer] => {
   const arr: number[] = [];
-  range(buf.length / 4).forEach(x => {
+  const arrLen = Math.floor(buf.length / 4);
+  range(arrLen).forEach(x => {
     arr.push(buf.readUInt32BE(x * 4));
   });
-  const rest = Buffer.alloc(arr.length - Math.floor(arr.length / 4) * 4);
-  buf.copy(rest, 0, Math.floor(arr.length / 4) * 4);
+  const rest = Buffer.alloc(buf.length - arr.length * 4);
+  buf.copy(rest, 0, arrLen * 4);
   return [arr, rest];
 };
 
