@@ -33,8 +33,6 @@ Program has compress/decompress mode. If not specified program will select decop
 
 
 ## Build executables
-
-Building:
 1. compile typescript `tsc`
 2. build executables `pkg ./bin/index.js --out-path ./build/`
 3. executables are in build directory
