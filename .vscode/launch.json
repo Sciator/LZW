@@ -34,37 +34,6 @@
         "-f"
       ],
       "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "PDF Compress",
-      "console": "integratedTerminal",
-      "program": "${workspaceFolder}/index.ts",
-      "outFiles": [
-        "${workspaceFolder}/bin/**/*.js"
-      ],
-      "args": [
-        "./data/test.pdf",
-        "-f"
-      ],
-      "cwd": "${workspaceFolder}"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "PDF Decompress",
-      "console": "integratedTerminal",
-      "program": "${workspaceFolder}/index.ts",
-      "outFiles": [
-        "${workspaceFolder}/bin/**/*.js"
-      ],
-      "args": [
-        "./data/test.pdf.lzw",
-        "./data/test.out.pdf",
-        "-f"
-      ],
-      "cwd": "${workspaceFolder}"
     }
   ]
 }
