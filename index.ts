@@ -7,7 +7,7 @@ yargs
   .command(
     "* [file] [output]",
     "de/compress given file",
-    (b) => b
+    builder => builder
       .positional("file", { describe: "file to compress/decompress", type: "string", alias: "in" })
       .positional("output", { describe: "file output, [input].lzw if not specified", type: "string", alias: "out" })
       .demandOption("file")
@@ -16,7 +16,7 @@ yargs
       .conflicts("compress", "decompress")
       .option("force", {
         alias: "f", boolean: true,
-        describe: "forces overvriting output file when already existrs"
+        describe: "forces overvriting output file when already existrs",
       })
     ,
     (async args => {
