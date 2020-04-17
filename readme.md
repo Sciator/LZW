@@ -10,6 +10,7 @@ Simple implementatio of lzw algorithm.
 2. global node packages important for building this project: 
    * typescript
    * pkg
+3. download local dependencies `npm install`
 
 ( global packages can be installed by `npm i -g pkg typescript` )
 
@@ -34,10 +35,9 @@ Program has compress/decompress mode. If not specified program will select decop
 ## Build executables
 
 Building:
-1. download dependencies `npm install`
-2. compile typescript `tsc`
-3. build executables `pkg ./bin/index.js --out-path ./build/`
-4. executables are in build directory
+1. compile typescript `tsc`
+2. build executables `pkg ./bin/index.js --out-path ./build/`
+3. executables are in build directory
 
 ## Run without building
 
