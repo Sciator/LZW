@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "simple lzw compression",
   "main": "index.ts",
-  "bin": {
-    "lzw": "BufferHelper.js"
+  "scripts": {
+    "random-file": "curl \"https://baconipsum.com/api/?type=meat-and-filler&paras=100&format=text\" --output data/test.txt"
   },
   "dependencies": {
     "chalk": "^3.0.0",
