@@ -4,7 +4,15 @@
   "description": "simple lzw compression",
   "main": "index.ts",
   "scripts": {
-    "random-file": "curl \"https://baconipsum.com/api/?type=meat-and-filler&paras=100&format=text\" --output data/test.txt"
+    "tsc": "tsc",
+    "dist": "tsc && pkg ./bin/index.js --out-path ./build/",
+    "test:random-file": "curl \"https://baconipsum.com/api/?type=meat-and-filler&paras=100&format=text\" --output data/test.txt",
+    "test:create-folder": "mkdir -p ./data/",
+    "test:prepare": "npm run test:create-folder && npm run test:random-file",
+    "test:compress": "ts-node index.ts \"./data/test.txt\" -f",
+    "test:decompress": "ts-node index.ts \"./data/test.txt.lzw\" \"./data/test.out.txt\" -f",
+    "test:run": "npm run test:compress && npm run test:decompress",
+    "test": "npm run test:prepare && npm run test:run"
   },
   "dependencies": {
     "chalk": "^3.0.0",

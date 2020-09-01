@@ -6,7 +6,7 @@ Simple implementatio of lzw algorithm.
 
 ### Compile and test
 
-1. node installed ( https://nodejs.org/ )
+1. node with npm installed ( https://nodejs.org/ )
 2. global node packages important for building this project: 
    * typescript
    * pkg
@@ -16,7 +16,7 @@ Simple implementatio of lzw algorithm.
 
 ### Run
 
-No special requirements.
+No special requirements, compiled package contains everything needed.
 
 ## Usage
 
@@ -26,16 +26,11 @@ Program has compress/decompress mode. If not specified program will select decop
 
 ## Test on random text
 
-0. ( create data dir `mkdir data` ) 
-1. generate random text with `npm run random-file`
-2. compress file with `ts-node index.ts "./data/test.txt" -f`
-3. decompress file (for check) with `ts-node index.ts "./data/test.txt.lzw" "./data/test.out.txt" -f`
-
+Run `npm test`
 
 ## Build executables
-1. compile typescript `tsc`
-2. build executables `pkg ./bin/index.js --out-path ./build/`
-3. executables are in build directory
+
+Run `npm run dist` executables are in build directory
 
 ## Run without building
 
