@@ -14,7 +14,7 @@ Simple implementatio of lzw algorithm.
 
 ( global packages can be installed by `npm i -g pkg typescript` )
 
-### Run
+### Run builded executables
 
 No special requirements, compiled package contains everything needed.
 
@@ -32,7 +32,7 @@ Run `npm test`
 
 Run `npm run dist` executables are in build directory
 
-## Run without building
+## Run source code without building
 
 Run with `ts-node ./index.ts` ( + arguments after )
 
